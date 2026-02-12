@@ -1,0 +1,19 @@
+# 基础镜像必须和主n8n版本一致（2.6.3）
+FROM n8nio/runners:2.6.3
+
+# 切换root安装ffmpeg
+USER root
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends ffmpeg && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# 切回node用户
+USER node
+
+# 暴露runner默认端口
+EXPOSE 5679
+
+# 保持原有启动命令
+CMD ["node", "/usr/local/lib/node_modules/n8n-runners/dist/launcher/index.js"]
