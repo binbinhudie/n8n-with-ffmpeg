@@ -1,19 +1,9 @@
-# 基础镜像改为 2.6.3 版本
-FROM n8nio/n8n:2.6.3
-
-# 切换root安装ffmpeg
-USER root
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends ffmpeg && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# 切回node用户
-USER node
-
-# 暴露n8n默认端口
-EXPOSE 5678
-
-# 保持原有启动命令
-CMD ["n8n", "start"]
+FROM n8nio/n8n:2.6.3  
+USER root  
+RUN apt-get update && \  
+    apt-get install -y --no-install-recommends ffmpeg && \  
+    apt-get clean && \  
+    rm -rf /var/lib/apt/lists/*  
+USER node  
+EXPOSE 5678  
+CMD ["n8n", "start"]  
